@@ -1,36 +1,46 @@
 # include <bits/stdc++.h>
 using namespace std;
+
 #define eggs 2
 #define floors 100
-int eggdrop(int n,int k)
-{
-int ed[n+1][k+1];
-for(int i=1;i<=n;i++)
- {
-     ed[i][0]=0;
-     ed[i][1]=1;
 
-  }
-  for(int i=1;i<=k;i++)
-   ed[1][i]=i;
-  int mampt;
-  for(int i=2;i<=n;i++)
-{
-  for(int  j=2;j<=k;j++)
- {
-    ed[i][j]= INT_MAX;
-    for(int x=1;x<=j;x++)
-      {
-            mampt=1+max(ed[i-1][x-1],ed[i][j-x]);
-            if(mampt<ed[i][j])
-            ed[i][j]=mampt;
-        }
+int egg_drop(int eggs,int floors){
+
+int look_up[eggs+1][floors+1];
+
+  for(int i=1;i<=eggs;i++){
+
+     look_up[i][0]=0;
+     look_up[i][1]=1;
+
  }
 
+  for(int i=1;i<=floors;i++)
+   look_up[1][i]=i;
+
+  int min_attempt;
+
+  for(int i=2;i<=eggs;i++){
+
+  for(int  j=2;j<=floors;j++){
+
+    look_up[i][j]= INT_MAX;
+
+    for(int x=1;x<=j;x++){
+      
+            min_attempt=1+max(look_up[i-1][x-1],look_up[i][j-x]);
+            if(min_attempt<look_up[i][j])
+            look_up[i][j]=min_attempt;
+      }
+  }
+
 }
-  return ed[n][k];
+
+  return ed[eggs][floors];
+
 }
-int main()
-{
-cout <<eggdrop(eggs,floors);
+int main(){
+
+  cout <<egg_drop(eggs,floors);
+
 }
