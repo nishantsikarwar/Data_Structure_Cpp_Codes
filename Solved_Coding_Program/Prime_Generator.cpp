@@ -1,59 +1,79 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define len 40000
-//#define beg 1000000000
-//#define fnl  10001000000
-bool sieve [len];
-//bool futher_sieve[fnl-beg]={0};
+#define beg 10000000000
+#define fnl 10000100000
+bool sieve [len]={0};
+
+
+void cal_prime(){
+
+	sieve[0]=sieve[1]=1;
+	for(unsigned long a=2;a<len;a++) {
+		if(sieve[a]==0) {
+
+		  	for(unsigned long b=a*a;b<len;b+=a)
+				sieve[b]=1;
+		}
+
+    }
+}
+
 int main(){
 
 ios_base::sync_with_stdio(false);
 cin.tie(0);
 cout.tie(0);
 
-int beg,fnl;
-cin>>beg>>fnl;
+//long int beg,fnl;
+//cin>>beg>>fnl;
+ cal_prime();
+ int size_of_array=fnl-beg+1;
 
-long int size_of_array=fnl-beg;
+vector<bool> futher_sieve(size_of_array);
 
-bool futher_sieve[size_of_array]={0};
+/*for (long int i = 0; i <size_of_array ; ++i)
+	futher_sieve[i]=i+beg;
+*/
 
-sieve[0]=sieve[1]=1;
-	for(unsigned long a=2;a<len;a++)
-	{
-		if(sieve[a]==0)
-		{
-			for(unsigned long b=a*a;b<len;b+=a)
-				sieve[b]=1;
-		}
-	}
+           long int j,temp;
 
-   long int i;
-       if(beg>=len){
-    for(int j=2;j<len;j++){
+       for(int i=2;i<len;i++){
 
-               if(sieve[j]==0){
-    	if(beg%j==0)
-    		i=beg;
-    	else
-    		i=j*((beg/j)+1);
+            if(sieve[i]==0) {
 
-    	while(i<fnl){
+    	       if(beg%i==0) {
 
-    		i+=j;
-    		futher_sieve[i-beg]=1;
+                    j=beg/i;
+    	       }
 
-    	}
+    	       else {
+    		       j=beg/i+1;
+    	       }
+
+    		   if(j<i) {
+
+    		   	j=i;
+    		   	
+    		   }
+
+    		    temp=i*j;
+
+    	    while(temp<=fnl) {
+    		    
+    		   futher_sieve[temp-beg]=1;
+    		   j++;
+    		   temp=i*j;
+    	 }
     }
+}
 
-     }       
-       }
-           
+         for(int i=0;i<size_of_array;i++)
+             if(futher_sieve[i]==0)
+                cout<<i+beg<<endl;
 
-           for(int i=0;i<size_of_array;i++)
-           	cout<<futher_sieve[i]<<endl;
+}
 
-       }
 
 
 
