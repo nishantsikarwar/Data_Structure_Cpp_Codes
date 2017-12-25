@@ -6,22 +6,29 @@
 using namespace std;
 #define endl "\n"
 #define vlong long long int 
-#define input 3
+#define input 8
 #define mod 1000000007
 
-int cut_rod(int p[],int n){
+int cut_rod ( int p[] , int n ,int length) {
 	
-	int max_price=0;
+	int look_up[length+1]={0}, temp;
+	//max_price[0]=0;
 
-	if(n ==0)
-		return max_price;
-    
-    else{
-	FOR(i,1,n-1){
-		max_price=max(max_price,p[i]+cut_rod(p,n-i));
-	}
-   return max_price;
+    if(n == 0)
+    	return 0;
+
+    FOR(i,1,n) {
+
+          temp =INT_MIN;
+
+	          FOR(j,0,i-1) 
+		  temp = max(temp, p[j] + look_up[i-j-1]); 
+
+          look_up[i] = temp;
+
 }
+
+       return look_up[n];
 
 }
 int main() {
@@ -29,6 +36,6 @@ int main() {
 	//speed 
 
 	int p[]={1,5,8,9,10,17,17,20,24,30};
-	cout<< cut_rod(p,input)<<endl; 
-         // cout<<"HELLO"<<endl;
+	cout<< cut_rod(p,input,sizeof(p)/sizeof(int))<<endl; 
+         		// cout<<sizeof(p)<<endl;
 }
