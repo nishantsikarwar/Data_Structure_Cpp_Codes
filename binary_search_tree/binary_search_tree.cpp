@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define for(i,x,y) for (int i = x; i <= y; ++i)
+#define For(i,x,y) for (int i = x; i <= y; ++i)
 #define speed ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
 #define endl "\n"
 #define input 
@@ -18,6 +18,7 @@ node *create_node(int value)
 	n->left = NULL;
 	n->right = NULL;
 	n->data = value;
+  return n;
 }
 
 void insert(node *root, int value)
@@ -78,6 +79,7 @@ int main (void)
 	insert(root, 5);
 	insert(root, 8);
 	insert(root, 15);
+  insert(root, 4);
 print_in_order(root);
 	printf("%s\n", "HELLO_WORLD!!!!");
 	return 0;
